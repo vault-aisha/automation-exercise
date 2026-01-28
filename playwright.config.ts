@@ -13,7 +13,7 @@ export default defineConfig({
     ['allure-playwright']
   ],
   use: {
-    trace: 'on-first-retry',
+    trace: 'on-first-retry', 
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     headless: true,

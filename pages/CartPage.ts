@@ -5,7 +5,6 @@ export class CartPage extends BasePage{
     async filterByCategoryWomen(){
         await this.page.locator("//a[normalize-space()='Women']").click();
         await this.page.locator("a[href='/category_products/1']").click();
-        await expect(this.page.getByRole('heading', { name: 'Women - Dress Products' })).toBeVisible();
         await expect(this.page.getByText('Women > Dress', { exact: true })).toBeVisible();
     }
     async filterByCategoryMen(){

@@ -1,6 +1,6 @@
 import {Page,expect} from '@playwright/test';
 import { BasePage } from './BasePage';
-import { TestConfig } from '../test.config.ts';
+import { userState } from '../data/userState';
 
 export class LoginPage extends BasePage{
     async openLoginPage(){
@@ -8,18 +8,20 @@ export class LoginPage extends BasePage{
         await expect(this.page).toHaveTitle("Automation Exercise - Signup / Login");
     }
     async userLogin(){
-        
-        const testConfig = new TestConfig();
-        await this.page.locator("input[data-qa='login-email']").fill(testConfig.email);
-        await this.page.locator("input[data-qa='login-password']").fill(testConfig.password);
+        await this.page.locator("input[data-qa='login-email']").fill(userState.email);
+        await this.page.locator("input[data-qa='login-password']").fill(userState.password);
         await this.page.locator("button[data-qa='login-button']").click();
         await expect(this.page.locator("a:has-text(' Logged in as ')")).toBeVisible();
     }
+    async userLogout(){
+        await this.page.locator("a:has-text(' Home')").click();
+        await this.page.locator("a:has-text(' Logout')").click();
+        await expect(this.page).toHaveTitle("Automation Exercise - Signup / Login");
+    }
     async incorrectUserLogin(){
-        const testConfig = new TestConfig();
-        await this.page.locator("input[data-qa='login-email']").fill(testConfig.email);
+        await this.page.locator("input[data-qa='login-email']").fill(userState.email);
         await this.page.locator("input[data-qa='login-password']").fill("WrongPassword123");
         await this.page.locator("button[data-qa='login-button']").click();
-        await expect(this.page.locator("p:has-text('Your email or password is incorrect!')]")).toBeVisible();
+        await expect(this.page.locator(':text("Your email or password is incorrect!")')).toBeVisible();
     }
 }

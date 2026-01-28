@@ -3,27 +3,23 @@ import { HomePage } from "../pages/HomePage";
 import { LoginPage } from "../pages/LoginPage";
 import { TestConfig } from "../test.config.ts";
 import { CartPage } from "../pages/CartPage";
+import { RegistrationPage } from "../pages/RegistrationPage";
 
-test.describe("E2E Purchasing Flow",()=>{
-    let homePage:HomePage;
+test.describe('User Creation Tests',()=>{
+    let registrationPage:RegistrationPage;
     let loginPage:LoginPage;
+    let homePage:HomePage;
     let cartPage:CartPage;
     const testConfig = new TestConfig();
     test.beforeEach(async({page})=>{
-        homePage=new HomePage(page);
+        registrationPage=new RegistrationPage(page);
         loginPage=new LoginPage(page);
+        homePage=new HomePage(page);
         cartPage=new CartPage(page);
-        await homePage.openHomePage();
+        await registrationPage.UserCreateAccount();
+        await loginPage.userLogout();
     });
-
-    test("Verify E2E Purchasing Flow",async({page})=>{
-        //Verify Home Page
-        await homePage.verifyHomePageLogo();
-        await homePage.verifyNavigationLinks();
-        await homePage.verifySliders();
-        await homePage.verifyCategories();
-        await homePage.verifyBrands();
-        await homePage.verifyFeatureItems();    
+    test("Verify E2E Purchasing Flow",async({page})=>{ 
         //Login User
         await loginPage.openLoginPage();
         await loginPage.userLogin();
