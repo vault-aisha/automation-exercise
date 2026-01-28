@@ -3,8 +3,7 @@ import { faker } from '@faker-js/faker';
 
 export class BasePage {
   protected page: Page;
-
-  protected user = {
+    user = {
     name: faker.person.firstName(),
     email: faker.internet.email(),
     password: faker.internet.password({ length: 10 })
