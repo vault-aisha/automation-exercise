@@ -1,9 +1,9 @@
 import { Page } from '@playwright/test';
-import { faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker/locale/en';
 
 export class BasePage {
   protected page: Page;
-    user = {
+  protected user = {
     name: faker.person.firstName(),
     email: faker.internet.email(),
     password: faker.internet.password({ length: 10 })
